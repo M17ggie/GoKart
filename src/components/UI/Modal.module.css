@@ -7,9 +7,8 @@
     left: 50%;
     top: 10%;
     transform: translateX(-50%); 
-    /* animation: modal 0.25s forwards ease-in-out ; */
-    transform: scale(1);
-    transition: transform ;
+    animation: modal 0.25s forwards ease-in-out ;
+
 }
 
 .backdrop {
