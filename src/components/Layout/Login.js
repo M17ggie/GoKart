@@ -1,8 +1,8 @@
 import { Button } from 'react-bootstrap';
-import Card from '../UI/Card'
+import Modal from '../UI/Modal'
 
-const Login = () => {
-    return <Card>
+const Login = (props) => {
+    return <Modal onClose={props.onClose}>
         <form className='mb-3 form-control'>
 
             {/* Email */}
@@ -15,8 +15,9 @@ const Login = () => {
 
             <Button className='btn-dark mt-3 mb-3'>Login</Button>
             <h6>Don't have an account? Sign-up now</h6>
+    
         </form>
-    </Card>
+    </Modal>
 }
 
 export default Login;

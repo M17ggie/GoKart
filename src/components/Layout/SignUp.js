@@ -1,32 +1,31 @@
-import Card from '../UI/Card'
+import Modal from '../UI/Modal'
 
 const SignUp = () => {
-    return <Card>
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" />
+    return <Modal>
+        <form className="row g-3">
+            <div className="col-md-6">
+                <label htmlFor="inputEmail" className="form-label">Email</label>
+                <input type="email" className="form-control" id="inputEmail" />
             </div>
-            <div class="col-md-6">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword" />
+            <div className="col-md-6">
+                <label htmlFor="inputPassword" className="form-label">Password</label>
+                <input type="password" className="form-control" id="inputPassword" />
             </div>
-            <div class="col-12">
-                <label for="inputAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="inputAddress" />
+            <div className="col-12">
+                <label htmlFor="inputAddress" className="form-label">Address</label>
+                <input type="text" className="form-control" id="inputAddress" />
             </div>
-            <div class="col-12">
-                <label for="inputAddress2" class="form-label">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" />
+            <div className="col-12">
+                <label htmlFor="inputAddress2" className="form-label">Address 2</label>
+                <input type="text" className="form-control" id="inputAddress2" />
             </div>
-            <div class="col-md-6">
-                <label for="inputCity" class="form-label">City</label>
-                <input type="text" class="form-control" id="inputCity" />
+            <div className="col-md-6">
+                <label htmlFor="inputCity" className="form-label">City</label>
+                <input type="text" className="form-control" id="inputCity" />
             </div>
-            <div class="col-md-4">
-                <label for="inputState" class="form-label">State</label>
-                <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
+            <div className="col-md-4">
+                <label htmlFor="inputState" className="form-label">State</label>
+                <select id="inputState" className="form-select" defaultValue='Choose...'>
                     <option>Mumbai</option>
                     <option>Delhi</option>
                     <option>Bangalore</option>
@@ -34,16 +33,16 @@ const SignUp = () => {
                     <option>Kolkata</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                <label for="inputZip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="inputZip" />
+            <div className="col-md-2">
+                <label htmlFor="inputZip" className="form-label">Zip</label>
+                <input type="text" className="form-control" id="inputZip" />
             </div>
-            <div class="col-12">
-                <button class="btn btn-dark">Sign in</button>
+            <div className="col-12">
+                <button className="btn btn-dark">Sign in</button>
             </div>
             <h6>Already have an account? Log in</h6>
         </form>
-    </Card>
+    </Modal>
 }
 
 export default SignUp;
