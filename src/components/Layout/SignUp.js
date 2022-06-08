@@ -88,6 +88,9 @@ const SignUp = (props) => {
     const emailClass = emailInputHasError ? 'form-control border-danger' : 'form-control'
     const passwordClass = passwordInputHasError ? 'form-control border-danger' : 'form-control'
 
+    //Loading state
+    const btn= isLoading? <LoadingSpinner />: 'Sign Up'
+
     return <Modal onClose={props.onClose}>
         <form onSubmit={formSubmitHandler} className="row bg-white p-2 g-3">
 
@@ -107,7 +110,7 @@ const SignUp = (props) => {
                 {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
                 {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
                 {error && <p className='text-danger'>Email already exists, log in to your account!</p>}
-                <button type='submit' className="btn btn-dark">{isLoading?'Loading...': 'Sign-up'}</button>
+                <button type='submit' className="btn btn-dark">{btn}</button>
             </div>
             <h6>Already have an account? Log in</h6>
         </form>
