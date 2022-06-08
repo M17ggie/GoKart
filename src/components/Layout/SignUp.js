@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import useHTTP from '../../hooks/useHTTP';
 import useInput from '../../hooks/useInput';
+import LoadingSpinner from '../UI/LoadingSpinner';
 import Modal from '../UI/Modal'
 
 const SignUp = (props) => {
-
-    const [isLogin, setIsLogin] = useState(true);
 
     // E-mail validity*******************************************************
 
@@ -36,37 +36,55 @@ const SignUp = (props) => {
             return
         }
 
-        if (isLogin) {
+        //Signing up the user
 
-        } else {
-            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
-                {
-                    method: 'POST',
-                    //To convert into JSON format bc that is what the server requires.
-                    body: JSON.stringify({
-                        email: enteredEmail,
-                        password: enteredPassword,
-                        returnSecureToken: true
-                    }),
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                }).then(res=>{
+        // fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+        //     {
+        //         method: 'POST',
+        //         //To convert into JSON format bc that is what the server requires.
+        //         body: JSON.stringify({
+        //             email: enteredEmail,
+        //             password: enteredPassword,
+        //             returnSecureToken: true
+        //         }),
+        //         headers: {
+        //             'Content-type': 'application/json'
+        //         }
+        //     }).then(res => {
 
-                    //If response is okay else we throw a error
-                    if(res.ok){
+        //         //If response is okay, else we throw a error
+        //         if (res.ok) {
+        //             console.log(res.status, 'User signed in')
+        //         } else {
+        //             // response data returns promise 
+        //             return res.json(data => {
+        //                 //show error modal
+        //                 console.log(data)
+        //             })
+        //         }
+        //     })
 
-                    } else{
-                        // response data returns promise 
-                        return res.json(data=>{
-                            //show error modal
-                            console.log(data)
-                        })
-                    }
-                })
+        urlConfig = {
+            url: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+            method: 'POST',
+            header: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true
+            })
         }
 
-        //Signing up the user
+        const { isLoading, data, error } = useHTTP(urlConfig)
+
+        if (isLoading) return <LoadingSpinner />
+
+        if(data) return console.log(data)
+
+        if(error) return console.log(error)
+
 
     }
 
@@ -91,7 +109,7 @@ const SignUp = (props) => {
             <div className="col-12">
                 {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
                 {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
-                <button className="btn btn-dark">Sign in</button>
+                <button type='submit' className="btn btn-dark">Sign in</button>
             </div>
             <h6>Already have an account? Log in</h6>
         </form>
