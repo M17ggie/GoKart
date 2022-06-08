@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useState } from "react"
 
 const useHTTP = (urlConfig) => {
 
@@ -19,12 +19,13 @@ const useHTTP = (urlConfig) => {
             if (!responseData.ok) {
                 throw new Error('Something happened and we couldn not process your request');
             }
-
+            return responseData
         }).then(setData)
             // if we have gotten an error then we will end up here
             // using shorthand again instead of arrow function
             // it is the same as (err) => setErr(err)
             .catch(setError)
+            .finally(setIsLoading(false))
 
     }
 
