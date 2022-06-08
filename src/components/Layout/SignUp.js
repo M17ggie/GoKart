@@ -82,19 +82,7 @@ const SignUp = (props) => {
         //             })
         //         }
         //     })
-
-
-        console.log(data)
     }
-
-
-
-    if (isLoading) return <LoadingSpinner />
-
-    // if (data) return console.log(data)
-
-    // if (error) return console.log(error)
-
 
 
     const emailClass = emailInputHasError ? 'form-control border-danger' : 'form-control'
@@ -118,6 +106,7 @@ const SignUp = (props) => {
             <div className="col-12">
                 {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
                 {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
+                {error && <p className='text-danger'>Email already exists, log in to your account!</p>}
                 <button type='submit' className="btn btn-dark">Sign in</button>
             </div>
             <h6>Already have an account? Log in</h6>
