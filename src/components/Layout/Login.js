@@ -1,5 +1,7 @@
 import { Button } from 'react-bootstrap';
+import useHTTP from '../../hooks/useHTTP';
 import useInput from '../../hooks/useInput';
+import LoadingSpinner from '../UI/LoadingSpinner';
 import Modal from '../UI/Modal'
 
 const Login = (props) => {
@@ -26,12 +28,43 @@ const Login = (props) => {
         blurHandler: passwordBlurHandler
     } = useInput(value => value.length >= 10)
 
-    //Setting up error class
+    // Logging the user***************************************************************
+
+    let urlConfig = {
+        url: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true
+        })
+    }
+
+    const { data, isLoading, error, request } = useHTTP(urlConfig);
+
+    const submitFormHandler = (e) => {
+        e.preventDefault();
+
+        if (!emailIsValid || !passwordIsValid) {
+            return
+        }
+
+        request();
+
+    }
+
+    //Setting up input error class**********************************************************
     const emailClass = emailHasError ? "form-control mb-3 border-danger" : "form-control mb-3"
     const passwordClass = passwordHasError ? "form-control border-danger mb-3" : "form-control mb-3"
 
+    //setting button content*****************************************************************
+    const btn = isLoading ? <LoadingSpinner /> : 'Log In'
+
     return <Modal onClose={props.onClose}>
-        <form className='mb-3 form-control'>
+        <form className='mb-3 form-control' onSubmit={submitFormHandler}>
 
             {/* Email */}
             <label htmlFor="input-email" className="form-label">Email address</label>
@@ -43,7 +76,8 @@ const Login = (props) => {
 
             {emailHasError && <p className="text-danger">Enter valid email</p>}
             {passwordHasError && <p className="text-danger">Enter valid Password</p>}
-            <Button className='btn-dark mt-3 mb-3'>Login</Button>
+
+            <Button className='btn-dark mt-3 mb-3'>{btn}</Button>
             <h6>Don't have an account? Sign-up now</h6>
 
         </form>
