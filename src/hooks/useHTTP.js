@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 
 const useHTTP = (urlConfig) => {
 
@@ -6,31 +6,33 @@ const useHTTP = (urlConfig) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null)
 
-    useEffect(() => {
-
-        //Before making the api request, loading is set to true
+    const request = async ({ url, method, body, headers }) => {
+        //Before making an api request, loading is set to true
         setIsLoading(true);
 
-        // fetching data 
-        fetch(urlConfig.url, {
-            method: urlConfig.method,
-            body: urlCongif.body,
-            headers: urlConfig.headers
-        }).then(response => {
-            setData(response.data)
-        }).catch(err => {
-            setError(err)
-        })
+        //fetching data
+        fetch(url, {
+            method,
+            body, headers
+        }).then(async response => {
+            const responseData = await response.json();
+            if (!responseData.ok) {
+                throw new Error('Something happened and we couldn not process your request');
+            }
 
-        //Setting loading to false regardless if the response was successfull or not
-        setIsLoading(false)
+        }).then(setData)
+            // if we have gotten an error then we will end up here
+            // using shorthand again instead of arrow function
+            // it is the same as (err) => setErr(err)
+            .catch(setError)
 
-    }, [urlConfig.url])
+    }
 
     return {
         isLoading,
         data,
-        error
+        error,
+        request
     }
 }
 
