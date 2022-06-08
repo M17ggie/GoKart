@@ -107,7 +107,7 @@ const SignUp = (props) => {
                 {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
                 {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
                 {error && <p className='text-danger'>Email already exists, log in to your account!</p>}
-                <button type='submit' className="btn btn-dark">Sign in</button>
+                <button type='submit' className="btn btn-dark">{isLoading?'Loading...': 'Sign-up'}</button>
             </div>
             <h6>Already have an account? Log in</h6>
         </form>
