@@ -6,6 +6,8 @@ import Modal from '../UI/Modal'
 
 const SignUp = (props) => {
 
+
+
     // E-mail validity*******************************************************
 
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,6 +29,21 @@ const SignUp = (props) => {
         blurHandler: passwordBlurHandler
     } = useInput(value => value.length >= 10)
 
+    let urlConfig = {
+        url: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true
+        })
+    }
+
+    const { isLoading, data, error, request } = useHTTP();
+
     //Form Submit Handler******************************************
     const formSubmitHandler = (e) => {
         e.preventDefault();
@@ -35,6 +52,8 @@ const SignUp = (props) => {
             console.log('error')
             return
         }
+
+        request(urlConfig)
 
         //Signing up the user
 
@@ -64,29 +83,19 @@ const SignUp = (props) => {
         //         }
         //     })
 
-        urlConfig = {
-            url: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
-            method: 'POST',
-            header: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true
-            })
-        }
 
-        const { isLoading, data, error } = useHTTP(urlConfig)
-
-        if (isLoading) return <LoadingSpinner />
-
-        if(data) return console.log(data)
-
-        if(error) return console.log(error)
-
-
+        console.log(data)
     }
+
+
+
+    if (isLoading) return <LoadingSpinner />
+
+    // if (data) return console.log(data)
+
+    // if (error) return console.log(error)
+
+
 
     const emailClass = emailInputHasError ? 'form-control border-danger' : 'form-control'
     const passwordClass = passwordInputHasError ? 'form-control border-danger' : 'form-control'
