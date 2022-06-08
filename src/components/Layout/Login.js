@@ -43,7 +43,9 @@ const Login = (props) => {
         })
     }
 
-    const { data, isLoading, error, request } = useHTTP(urlConfig);
+    const { data, isLoading, error, request } = useHTTP();
+
+    // logging in user*******************************************************
 
     const submitFormHandler = (e) => {
         e.preventDefault();
@@ -52,7 +54,10 @@ const Login = (props) => {
             return
         }
 
-        request();
+        console.log(enteredEmail,enteredPassword)
+        request(urlConfig);
+        console.log(data);
+        console.log(error)
 
     }
 
@@ -78,6 +83,7 @@ const Login = (props) => {
             {passwordHasError && <p className="text-danger">Enter valid Password</p>}
 
             <Button className='btn-dark mt-3 mb-3'>{btn}</Button>
+            {data}
             <h6>Don't have an account? Sign-up now</h6>
 
         </form>
