@@ -1,7 +1,9 @@
 import { Button } from 'react-bootstrap';
+import useInput from '../../hooks/useInput';
 import Modal from '../UI/Modal'
 
 const Login = (props) => {
+
     return <Modal onClose={props.onClose}>
         <form className='mb-3 form-control'>
 

@@ -1,47 +1,96 @@
+import { useState } from 'react';
+import useInput from '../../hooks/useInput';
 import Modal from '../UI/Modal'
 
 const SignUp = (props) => {
+
+    const [isLogin, setIsLogin] = useState(true);
+
+    // E-mail validity*******************************************************
+
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    const {
+        value: enteredEmail,
+        isValid: emailIsValid,
+        hasError: emailInputHasError,
+        valueChangeHandler: emailValueHandler,
+        blurHandler: emailBlurHandler
+    } = useInput(value => emailRegex.test(value))
+
+    // Password validity****************************************************
+    const {
+        value: enteredPassword,
+        isValid: passwordIsValid,
+        hasError: passwordInputHasError,
+        valueChangeHandler: passwordValueHandler,
+        blurHandler: passwordBlurHandler
+    } = useInput(value => value.length >= 10)
+
+    //Form Submit Handler******************************************
+    const formSubmitHandler = (e) => {
+        e.preventDefault();
+
+        if (!emailIsValid || !passwordIsValid) {
+            console.log('error')
+            return
+        }
+
+        if (isLogin) {
+
+        } else {
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+                {
+                    method: 'POST',
+                    //To convert into JSON format bc that is what the server requires.
+                    body: JSON.stringify({
+                        email: enteredEmail,
+                        password: enteredPassword,
+                        returnSecureToken: true
+                    }),
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                }).then(res=>{
+
+                    //If response is okay else we throw a error
+                    if(res.ok){
+
+                    } else{
+                        // response data returns promise 
+                        return res.json(data=>{
+                            //show error modal
+                            console.log(data)
+                        })
+                    }
+                })
+        }
+
+        //Signing up the user
+
+    }
+
+    const emailClass = emailInputHasError ? 'form-control border-danger' : 'form-control'
+    const passwordClass = passwordInputHasError ? 'form-control border-danger' : 'form-control'
+
     return <Modal onClose={props.onClose}>
-        <form className="row g-3">
-            <div className="col-md-6">
-                <label htmlFor="inputFirstName" className="form-label">First Name</label>
-                <input type="text" className="form-control" id="inputFirstName" />
-            </div>
-            <div className="col-md-6">
-                <label htmlFor="inputlastName" className="form-label">Last Name</label>
-                <input type="text" className="form-control" id="inputlastName" />
-            </div>
-            <div className="col-md-6">
+        <form onSubmit={formSubmitHandler} className="row bg-white p-2 g-3">
+
+            {/* Email */}
+            <div className="col-7">
                 <label htmlFor="inputEmail" className="form-label">Email</label>
-                <input type="email" className="form-control" id="inputEmail" />
+                <input type="email" className={emailClass} id="inputEmail" onChange={emailValueHandler} onBlur={emailBlurHandler} value={enteredEmail} />
             </div>
-            <div className="col-12">
+
+            {/* Password */}
+            <div className="col-7">
                 <label htmlFor="inputPassword" className="form-label">Set Password</label>
-                <input type="password" className="form-control" id="inputPassword" />
+                <input type="password" className={passwordClass} id="inputPassword" onChange={passwordValueHandler} onBlur={passwordBlurHandler} value={enteredPassword} />
             </div>
+
             <div className="col-12">
-                <label htmlFor="inputAddress" className="form-label">Address</label>
-                <input type="text" className="form-control" id="inputAddress" />
-            </div>
-            <div className="col-12">
-                <label htmlFor="inputAddress2" className="form-label">Address 2</label>
-                <input type="text" className="form-control" id="inputAddress2" />
-            </div>
-            <div className="col-md-4">
-                <label htmlFor="inputState" className="form-label">City</label>
-                <select id="inputState" className="form-select" defaultValue='Choose...'>
-                    <option>Mumbai</option>
-                    <option>Delhi</option>
-                    <option>Bangalore</option>
-                    <option>Chennai</option>
-                    <option>Kolkata</option>
-                </select>
-            </div>
-            <div className="col-md-2">
-                <label htmlFor="inputZip" className="form-label">Zip</label>
-                <input type="text" className="form-control" id="inputZip" />
-            </div>
-            <div className="col-12">
+                {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
+                {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
                 <button className="btn btn-dark">Sign in</button>
             </div>
             <h6>Already have an account? Log in</h6>
