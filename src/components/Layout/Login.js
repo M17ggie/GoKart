@@ -50,7 +50,9 @@ const Login = (props) => {
     const submitFormHandler = (e) => {
         e.preventDefault();
 
+        console.log('Hi')
         if (!emailIsValid || !passwordIsValid) {
+            console.log('error')
             return
         }
 

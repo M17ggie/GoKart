@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useHTTP from '../../hooks/useHTTP';
 import useInput from '../../hooks/useInput';
 import LoadingSpinner from '../UI/LoadingSpinner';
@@ -88,7 +87,7 @@ const SignUp = (props) => {
     const emailClass = emailInputHasError ? 'form-control border-danger' : 'form-control'
     const passwordClass = passwordInputHasError ? 'form-control border-danger' : 'form-control'
 
-    //Loading state
+    //button Loading state
     const btn= isLoading? <LoadingSpinner />: 'Sign Up'
 
     return <Modal onClose={props.onClose}>
@@ -110,6 +109,7 @@ const SignUp = (props) => {
                 {emailInputHasError && <p className='text-danger'>Please enter valid email</p>}
                 {passwordInputHasError && <p className='text-danger'>Password must be atleast 10 characters long</p>}
                 {error && <p className='text-danger'>Email already exists, log in to your account!</p>}
+                {data && <p className='text-success'>Account created! Log in to continue shopping</p>}
                 <button type='submit' className="btn btn-dark">{btn}</button>
             </div>
             <h6>Already have an account? Log in</h6>
