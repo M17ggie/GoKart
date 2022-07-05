@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+<!-- To show and hide Login Modal -->
+
+To show the log in modal, we first pass the showLogInModalhandler function from App.js to Header.js and then further down to button component
+
+To hide it, we pass the hideLogInModalHandler function from App.js to Login.js and then further to Modal.js.

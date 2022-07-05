@@ -1,0 +1,45 @@
+.header-container{
+    display: flex;
+    width: 100%;
+    height: 5rem;
+    border: 1px solid red;
+    align-items: center;
+    justify-content: space-around;
+    background-color:sienna;
+}
+
+h1{
+    color: wheat;
+}
+
+.btn-log-in{
+    background-color: rgb(255, 255, 255) !important;
+    color: black;
+    border: none;
+}
+
+.btn-sign-up{
+    background-color: rgb(205, 122, 6) !important;
+    border: none;
+}
+
+.btn-log-in:active, .btn-log-in:hover, .btn-log-in:focus{
+    color: black;
+    background-color: rgb(231, 231, 231) !important;
+    border: none;
+}
+
+.btn-sign-up:hover{
+    background-color: rgb(239, 155, 38) !important;
+}
+
+.cart-icon{
+    transform: scale(2);
+    margin: 1rem;
+    color: rgb(255, 255, 255);
+}
+
+.cart-icon:hover{
+    color: rgb(231, 231, 231);
+    cursor: pointer;
+}
