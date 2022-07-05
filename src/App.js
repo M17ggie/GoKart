@@ -3,7 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Layout/Header'
 import Login from './components/Layout/Login';
 import SignUp from './components/Layout/SignUp';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AuthContext from './store/auth-context';
 
 function App() {
 
@@ -28,15 +29,17 @@ function App() {
     setShowSignUpModal(true)
   }
 
+  //login state
+  const authCtx = useContext(AuthContext);
 
   return (
     <div className="App">
       <Header onShowLogInModal={showLogInModalHandler} onShowSignUpModal={showSignUpModalHandler} />
 
       {/* <HomePage /> */}
-      {showLogInModal && <Login onClose={hideLogInModalHandler}/>}
+      {showLogInModal && !authCtx.isLoggedIn && <Login onClose={hideLogInModalHandler}/>}
 
-      {showSignUpModal && <SignUp onClose={hideSignUpModalHandler} />}
+      {showSignUpModal && !authCtx.isLoggedIn && <SignUp onClose={hideSignUpModalHandler} />}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import useHTTP from '../../hooks/useHTTP';
 import useInput from '../../hooks/useInput';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import Modal from '../UI/Modal'
+import Modal from '../UI/Modal';
 
 const Login = (props) => {
+
 
     //Email validity**************************************************
 
@@ -42,7 +43,7 @@ const Login = (props) => {
         })
     }
 
-    const { data, isLoading, error, request } = useHTTP();
+    const { isLoading, request } = useHTTP();
 
     // logging in user*******************************************************
 
