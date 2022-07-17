@@ -1,7 +1,8 @@
-import useHTTP from '../../hooks/useHTTP';
+import useAuthentication from '../../hooks/useAuth';
 import useInput from '../../hooks/useInput';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import Modal from '../UI/Modal';
+
 
 const Login = (props) => {
 
@@ -30,20 +31,20 @@ const Login = (props) => {
 
     // Logging the user***************************************************************
 
-    let urlConfig = {
-        url: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true
-        })
-    }
+    // let urlConfig = {
+    //     url: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBpSEq03ZQ1R0wVt6qjBvQ5r44vRRG2bac',
+    //     method: 'POST',
+    //     headers: {
+    //         'content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         email: enteredEmail,
+    //         password: enteredPassword,
+    //         returnSecureToken: true
+    //     })
+    // }
 
-    const { isLoading, request } = useHTTP();
+    const { isLoading, request } = useAuthentication(enteredEmail, enteredPassword);
 
     // logging in user*******************************************************
 
@@ -55,7 +56,7 @@ const Login = (props) => {
             return
         }
 
-        request(urlConfig);
+        request();
         // console.log(data);
         // console.log(error);
 
