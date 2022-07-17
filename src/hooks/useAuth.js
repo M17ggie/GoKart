@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-const useAuthentication = (urlConfig) => {
+const useAuthentication = (email, password) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,14 +29,15 @@ const useAuthentication = (urlConfig) => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        console.log(response);
-        // if (!response.ok) {
-        //   throw new Error(
-        //     "Something happened and we could not process your request. Please try again"
-        //   );
-        // }
+        console.log("useAuthHook", response);
+        if (!response.ok) {
+          throw new Error(
+            "Something happened and we could not process your request. Please try again"
+          );
+        }
         //logging in using token data*********************
-        // authCtx.login(response.idToken);
+        authCtx.login(response.idToken);
+        setData(response);
         return response;
       })
       .catch(setError);

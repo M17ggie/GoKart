@@ -48,7 +48,6 @@ const SignUp = (props) => {
 
   // const { isLoading, data, error, request } = useHTTP();
 
-  
   //custom hook useAuthentication*****************************
   const { isLoading, data, error, request } = useAuthentication(
     enteredEmail,
@@ -65,10 +64,9 @@ const SignUp = (props) => {
     }
 
     // creating user using custom hook ***********************
-    request();
+    request(enteredEmail, enteredPassword);
 
-
-
+    console.log(error)
 
     // creating new user using firebase *********************************
     // createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
@@ -116,7 +114,7 @@ const SignUp = (props) => {
     : "form-control";
 
   //button Loading state
-  const btn = isLoading ? <LoadingSpinner /> : 'Sign Up'
+  const btn = isLoading ? <LoadingSpinner /> : "Sign Up";
 
   return (
     <Modal onClose={props.onClose}>
