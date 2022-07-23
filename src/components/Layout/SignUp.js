@@ -67,6 +67,7 @@ const SignUp = (props) => {
     request(enteredEmail, enteredPassword);
 
     console.log(error)
+    console.log(data)
 
     // creating new user using firebase *********************************
     // createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)

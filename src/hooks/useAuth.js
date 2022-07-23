@@ -29,12 +29,13 @@ const useAuthentication = (email, password) => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        console.log("useAuthHook", response);
         if (!response.ok) {
           throw new Error(
             "Something happened and we could not process your request. Please try again"
           );
         }
+        console.log("useAuthHook", response);
+        console.log(Error)
         //logging in using token data*********************
         authCtx.login(response.idToken);
         setData(response);
