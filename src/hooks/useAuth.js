@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-const useAuthentication = (email, password) => {
+const useAuthentication = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,20 +28,22 @@ const useAuthentication = (email, password) => {
     setIsLoading(true);
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            "Something happened and we could not process your request. Please try again"
-          );
-        }
-        console.log("useAuthHook", response);
-        console.log(Error)
-        //logging in using token data*********************
-        authCtx.login(response.idToken);
-        setData(response);
-        return response;
+      .then(response => {
+        const responseData = response.user;
+        console.log(responseData);
+        setData(responseData)
+        return responseData;
       })
-      .catch(setError);
+      .catch(error => {
+        const errorMessage = error.message
+        setError(errorMessage);
+        return error
+      });
+
+    //to close the sign-up modal
+    const closeModal = () => {
+      
+    }
   };
 
   // const request = async ({ url, method, body, headers }) => {

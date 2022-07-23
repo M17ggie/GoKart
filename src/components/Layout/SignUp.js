@@ -4,7 +4,6 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import Modal from "../UI/Modal";
 import { app } from "../../firebaseConfig";
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
 
 const SignUp = (props) => {
   //   let auth = getAuth();
@@ -65,9 +64,6 @@ const SignUp = (props) => {
 
     // creating user using custom hook ***********************
     request(enteredEmail, enteredPassword);
-
-    console.log(error)
-    console.log(data)
 
     // creating new user using firebase *********************************
     // createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
@@ -164,11 +160,11 @@ const SignUp = (props) => {
               Email already exists, log in to your account!
             </p>
           )}
-          {data && (
+          {/* {data && (
             <p className="text-success">
               Account created! Log in to continue shopping
             </p>
-          )}
+          )} */}
           <button type="submit" className="btn btn-dark">
             {btn}
           </button>
